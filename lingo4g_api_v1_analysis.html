@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Tableau WDC - Lingo4G API V1 Analysis</title>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        />
+        <script src="js/es6-promise.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://connectors.tableau.com/libs/tableauwdc-2.3.latest.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center pt-5">
+                    <h2 class="mb-5">
+                        Tableau Web Data Connector for Patents View Lingo4G API
+                    </h2>
+                    <p>
+                        Clck on the button below to get filtered data from:
+                    </p>
+                    <p>
+                        http://54.175.11.175:8080/api/v1/analysis (Lingo4G
+                        Patents View)
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center pt-5">
+                    <button
+                        type="button"
+                        class="fetch_data_button btn btn-primary"
+                    >
+                        Get Data
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script src="js/wdc.js"></script>
+    </body>
+</html>
