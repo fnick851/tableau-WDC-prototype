@@ -84,7 +84,7 @@
             })
     }
 
-    setupConnector = function setupConnector() {
+    function setupConnector() {
         var search_query = document.querySelector("#search_query").value
         var connectionData = {
             search_query: search_query
