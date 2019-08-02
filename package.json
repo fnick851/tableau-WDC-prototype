@@ -4,13 +4,13 @@
     "description": "To develop locally, you need to download the WDC simulator.",
     "main": "index.js",
     "watch": {
-        "build": "js/src.js"
+        "build": "src/*.js"
     },
     "scripts": {
         "dev": "npm-watch build",
-        "browserify": "browserify js/src.js -o js/browserified.js",
-        "babelify": "npx babel js/browserified.js -o js/bundle.js",
-        "build": "npm run browserify && npm run babelify && rm js/browserified.js"
+        "browserify": "browserify src/index.js -o browserified.js",
+        "babelify": "npx babel browserified.js -o bundle.js",
+        "build": "npm run browserify && npm run babelify && rm browserified.js"
     },
     "repository": {
         "type": "git",
