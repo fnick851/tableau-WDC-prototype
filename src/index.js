@@ -1,37 +1,23 @@
 require("@babel/polyfill")
-const getFlatObj = require("./callApi.js")
-const calculateSchema = require("./calculateSchema.js")
+const callApi = require("./callApi.js")
+const getSchema = require("./getSchema.js")
+const getData = require("./getData.js")
 
 const wdc = tableau.makeConnector()
 
 wdc.getSchema = function(schemaCallback) {
-    calculateSchema(schemaCallback)
+    getSchema(schemaCallback)
 }
 
-wdc.getData = async function(table, doneCallback) {
-    const connectionData = JSON.parse(tableau.connectionData)
-    const { columns, flattenObj } =  connectionData
-    console.log("datas:", columns, flattenObj)
-
-    const tableData = flattenObj.map(element => {
-        const eachItem = {}
-        columns.forEach(el => {
-            const objKey = el.id
-            const schemaKey = objKey.replace(".", "_")
-            eachItem[schemaKey] = element[objKey] ? element[objKey] : null
-        })
-        return eachItem
-    })
-    
-    table.appendRows(tableData)
-    doneCallback()
+wdc.getData = function(table, doneCallback) {
+    getData(table, doneCallback)
 }
 
 async function setupConnector() {
     const search_query = document.querySelector("#search_query").value
-    const { flattenList } = await getFlatObj(search_query)
+    const { data } = await callApi(search_query)
     const connectionData = {
-        flattenObj: flattenList
+        data
     }
     tableau.connectionData = JSON.stringify(connectionData)
     tableau.connectionName = "Lingo4G Patents View Prototype WDC"

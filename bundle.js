@@ -1,11 +1,5 @@
 "use strict";
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -321,7 +315,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     "core-js/fn/string/trim-start": 39,
     "core-js/fn/symbol/async-iterator": 40,
     "core-js/web": 332,
-    "regenerator-runtime/runtime": 335
+    "regenerator-runtime/runtime": 334
   }],
   4: [function (require, module, exports) {
     module.exports = require('./lib/axios');
@@ -1843,7 +1837,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     };
   }, {
     "./helpers/bind": 19,
-    "is-buffer": 334
+    "is-buffer": 333
   }],
   29: [function (require, module, exports) {
     require('../modules/es6.symbol');
@@ -11159,96 +11153,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     "../modules/web.timers": 331
   }],
   333: [function (require, module, exports) {
-    var isBuffer = require('is-buffer');
-
-    module.exports = flatten;
-    flatten.flatten = flatten;
-    flatten.unflatten = unflatten;
-
-    function flatten(target, opts) {
-      opts = opts || {};
-      var delimiter = opts.delimiter || '.';
-      var maxDepth = opts.maxDepth;
-      var output = {};
-
-      function step(object, prev, currentDepth) {
-        currentDepth = currentDepth || 1;
-        Object.keys(object).forEach(function (key) {
-          var value = object[key];
-          var isarray = opts.safe && Array.isArray(value);
-          var type = Object.prototype.toString.call(value);
-          var isbuffer = isBuffer(value);
-          var isobject = type === '[object Object]' || type === '[object Array]';
-          var newKey = prev ? prev + delimiter + key : key;
-
-          if (!isarray && !isbuffer && isobject && Object.keys(value).length && (!opts.maxDepth || currentDepth < maxDepth)) {
-            return step(value, newKey, currentDepth + 1);
-          }
-
-          output[newKey] = value;
-        });
-      }
-
-      step(target);
-      return output;
-    }
-
-    function unflatten(target, opts) {
-      opts = opts || {};
-      var delimiter = opts.delimiter || '.';
-      var overwrite = opts.overwrite || false;
-      var result = {};
-      var isbuffer = isBuffer(target);
-
-      if (isbuffer || Object.prototype.toString.call(target) !== '[object Object]') {
-        return target;
-      } // safely ensure that the key is
-      // an integer.
-
-
-      function getkey(key) {
-        var parsedKey = Number(key);
-        return isNaN(parsedKey) || key.indexOf('.') !== -1 || opts.object ? key : parsedKey;
-      }
-
-      var sortedKeys = Object.keys(target).sort(function (keyA, keyB) {
-        return keyA.length - keyB.length;
-      });
-      sortedKeys.forEach(function (key) {
-        var split = key.split(delimiter);
-        var key1 = getkey(split.shift());
-        var key2 = getkey(split[0]);
-        var recipient = result;
-
-        while (key2 !== undefined) {
-          var type = Object.prototype.toString.call(recipient[key1]);
-          var isobject = type === '[object Object]' || type === '[object Array]'; // do not write over falsey, non-undefined values if overwrite is false
-
-          if (!overwrite && !isobject && typeof recipient[key1] !== 'undefined') {
-            return;
-          }
-
-          if (overwrite && !isobject || !overwrite && recipient[key1] == null) {
-            recipient[key1] = typeof key2 === 'number' && !opts.object ? [] : {};
-          }
-
-          recipient = recipient[key1];
-
-          if (split.length > 0) {
-            key1 = getkey(split.shift());
-            key2 = getkey(split[0]);
-          }
-        } // unflatten again for 'messy objects'
-
-
-        recipient[key1] = unflatten(target[key], opts);
-      });
-      return result;
-    }
-  }, {
-    "is-buffer": 334
-  }],
-  334: [function (require, module, exports) {
     /*!
      * Determine if an object is a Buffer
      *
@@ -11259,7 +11163,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       return obj != null && obj.constructor != null && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj);
     };
   }, {}],
-  335: [function (require, module, exports) {
+  334: [function (require, module, exports) {
     /**
      * Copyright (c) 2014-present, Facebook, Inc.
      *
@@ -11966,111 +11870,32 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       Function("r", "regeneratorRuntime = r")(runtime);
     }
   }, {}],
-  336: [function (require, module, exports) {
-    var calculateSchema = function calculateSchema(schemaCallback) {
-      var _JSON$parse = JSON.parse(tableau.connectionData),
-          flattenObj = _JSON$parse.flattenObj;
-
-      var numOfKeys = 0;
-      var biggestObj = 0;
-      flattenObj.forEach(function (element) {
-        var lengthOfKeys = Object.keys(element).length;
-
-        if (lengthOfKeys > numOfKeys) {
-          numOfKeys = lengthOfKeys;
-          biggestObj = element;
-        }
-      });
-      var columns = [];
-      Object.keys(biggestObj).forEach(function (element) {
-        columns.push({
-          id: element,
-          dataType: getDataType(element)
-        });
-      });
-
-      function getDataType(key) {
-        if (key === 'display' || key === 'text' || key.includes('document_patent_number_list')) {
-          return tableau.dataTypeEnum.string;
-        }
-
-        return tableau.dataTypeEnum.float;
-      }
-
-      tableau.connectionData = JSON.stringify({
-        flattenObj: flattenObj,
-        columns: columns
-      });
-      var cols = columns.map(function (element) {
-        var cleanId = element.id.replace(".", "_");
-        var dataType = element.dataType;
-        return {
-          id: cleanId,
-          dataType: dataType
-        };
-      });
-      console.log(columns, cols);
-      var tableSchema = {
-        id: "lingo4g_api_v1_analysis_res_filtered",
-        alias: "Filtered result of calling Lingo4G endpoint /api/v1/analysis?async=false",
-        columns: cols
-      };
-      schemaCallback([tableSchema]);
-    };
-
-    module.exports = calculateSchema;
-  }, {}],
-  337: [function (require, module, exports) {
+  335: [function (require, module, exports) {
     var axios = require("axios");
 
-    var flatten = require("flat");
-
-    var getFlatObj =
+    var getData =
     /*#__PURE__*/
     function () {
       var _ref = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee(search_query) {
-        var getApiUrl, flattenList, response, labelsList, documentsEmbeddingLabels, documentList, labelCoordMergedList, patentNumberMergerd;
+        var getApiUrl, response, data;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 getApiUrl = 'http://54.175.11.175:8080/api/v1/analysis?spec={"scope":{"limit":"unlimited","selector":{"type":"byQuery","query":"' + search_query + '","queryParser":""}},"labels":{"maxLabels":100,"source":{"fields":[{"name":"patent_title$phrases","weight":1},{"name":"patent_abstract$phrases","weight":1}]},"surface":{"minWordCount":1,"maxWordCount":8,"minCharacterCount":4,"minWordCharacterCountAverage":2.9,"preferredWordCount":2.5,"preferredWordCountDeviation":2.5,"singleWordLabelWeightMultiplier":0.5,"capitalizedLabelWeight":1,"uppercaseLabelWeight":1,"acronymLabelWeight":1,"exclude":[{"type":"project","dictionary":"default"}]},"frequencies":{"minAbsoluteDf":2,"minRelativeDf":0,"maxRelativeDf":0.4,"maxLabelsPerDocument":10,"truncatedPhraseThreshold":0.2},"probabilities":{"autoStopLabelRemovalStrength":0.35,"autoStopLabelMinCoverage":0.4},"scorers":{"tokenCountScorerWeight":1,"tfScorerWeight":1,"idfScorerWeight":1,"completePhrasesScorerWeight":1,"truncatedPhrasesScorerWeight":1,"dictionaryScorerWeight":1,"tokenCaseScorerWeight":1},"arrangement":{"enabled":false,"algorithm":{"type":"ap","ap":{"maxIterations":2000,"minSteadyIterations":100,"threads":"auto","softening":0.9,"damping":0.9,"minPruningGain":0.3,"inputPreference":0,"preferenceInitializer":"NONE","preferenceInitializerScaling":1}},"relationship":{"type":"cooccurrences","cooccurrences":{"cooccurrenceWindowSize":32,"cooccurrenceCountingAccuracy":0.5,"similarityWeighting":"INCLUSION","threads":"auto"}}},"direct":[]},"documents":{"arrangement":{"enabled":true,"algorithm":{"type":"ap","ap":{"maxIterations":2000,"minSteadyIterations":100,"threads":"8","softening":0.9,"damping":0.9,"minPruningGain":0.3,"inputPreference":0,"addSelfSimilarityToPreference":false},"maxClusterLabels":3,"maxLabelsPerDocument":10},"relationship":{"type":"mlt","mlt":{"maxSimilarDocuments":8,"minDocumentLabels":1,"maxQueryLabels":4,"minQueryLabelOccurrences":1,"minMatchingQueryLabels":1,"maxScopeSizeForSubIndex":0.3,"maxInMemorySubIndexSize":8000000,"threads":"16"}}},"embedding":{"enabled":true,"algorithm":{"type":"lv","lv":{"maxIterations":300,"negativeEdgeCount":5,"negativeEdgeWeight":2,"negativeEdgeDenominator":1,"threads":"16"}},"relationship":{"type":"mlt","mlt":{"maxSimilarDocuments":8,"minDocumentLabels":1,"maxQueryLabels":4,"minQueryLabelOccurrences":1,"minMatchingQueryLabels":1,"maxScopeSizeForSubIndex":0.3,"maxInMemorySubIndexSize":8000000,"threads":"16","maxSimilarDocumentsPerLabel":5}}}},"output":{"format":"json","parameters":{},"pretty":false,"labels":{"enabled":true,"labelFormat":"ORIGINAL","documents":{"enabled":true,"maxDocumentsPerLabel":10,"outputScores":false}},"documents":{"enabled":true,"onlyWithLabels":true,"onlyAssignedToLabels":false,"labels":{"enabled":false,"maxLabelsPerDocument":2147483647,"minLabelOccurrencesPerDocument":0},"content":{"enabled":true,"fields":[{"name":"patent_number"}]}}},"performance":{"threads":"16"},"summary":{"labeledDocuments":true},"debug":{"logCandidateLabelPartialScores":false}}&async=false';
-                flattenList = {};
-                _context.next = 4;
+                _context.next = 3;
                 return axios.get(getApiUrl);
 
-              case 4:
+              case 3:
                 response = _context.sent;
-                labelsList = response.data.labels.list;
-                documentsEmbeddingLabels = response.data.documents.embedding.labels;
-                documentList = response.data.documents.list;
-                labelCoordMergedList = labelsList.map(function (labelDetail) {
-                  var match = documentsEmbeddingLabels.find(function (labelCoord) {
-                    return labelCoord.id === labelDetail.id;
-                  });
-                  return _objectSpread({}, labelDetail, {}, match);
-                });
-                patentNumberMergerd = labelCoordMergedList.map(function (labelDetail) {
-                  var filteredList = documentList.filter(function (documentDetail) {
-                    return labelDetail.documents.includes(documentDetail.id);
-                  });
-                  var patentNumberList = filteredList.map(function (documentDetail) {
-                    return documentDetail.content[0].values[0];
-                  });
-                  delete labelDetail.documents;
-                  labelDetail.document_patent_number_list = patentNumberList;
-                  return labelDetail;
-                });
-                flattenList = patentNumberMergerd.map(function (nonFlatEl) {
-                  return flatten(nonFlatEl);
-                });
+                data = response.data;
                 return _context.abrupt("return", {
-                  flattenList: flattenList
+                  data: data
                 });
 
-              case 12:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -12078,67 +11903,202 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         }, _callee);
       }));
 
-      return function getFlatObj(_x) {
+      return function getData(_x) {
         return _ref.apply(this, arguments);
       };
     }();
 
-    module.exports = getFlatObj;
+    module.exports = getData;
   }, {
-    "axios": 4,
-    "flat": 333
+    "axios": 4
   }],
+  336: [function (require, module, exports) {
+    var getData = function getData(table, doneCallback) {
+      var connectionData = JSON.parse(tableau.connectionData);
+      var data = connectionData.data;
+      var tableData = [];
+
+      if (table.tableInfo.id == "labels") {
+        var labelList = data.labels.list;
+        tableData = labelList.map(function (_ref2) {
+          var display = _ref2.display,
+              text = _ref2.text,
+              score = _ref2.score,
+              df = _ref2.df,
+              id = _ref2.id;
+          return {
+            display: display,
+            text: text,
+            score: score,
+            df: df,
+            id: id
+          };
+        });
+      }
+
+      if (table.tableInfo.id == "label_document_lookup") {
+        var _labelList = data.labels.list;
+
+        _labelList.forEach(function (_ref3) {
+          var id = _ref3.id,
+              documents = _ref3.documents;
+          documents.forEach(function (el) {
+            tableData.push({
+              label_id: id,
+              document_id: el
+            });
+          });
+        });
+      }
+
+      if (table.tableInfo.id == "label_coordinates") {
+        var labelCoordList = data.documents.embedding.labels;
+        tableData = labelCoordList.map(function (_ref4) {
+          var id = _ref4.id,
+              x = _ref4.x,
+              y = _ref4.y;
+          return {
+            id: id,
+            x: x,
+            y: y
+          };
+        });
+      }
+
+      if (table.tableInfo.id == "document_coordinates") {
+        var documentCoordList = data.documents.embedding.documents;
+        tableData = documentCoordList.map(function (_ref5) {
+          var id = _ref5.id,
+              x = _ref5.x,
+              y = _ref5.y;
+          return {
+            id: id,
+            x: x,
+            y: y
+          };
+        });
+      }
+
+      if (table.tableInfo.id == "document_patent_numbers") {
+        var patentNumberList = data.documents.list;
+        patentNumberList.forEach(function (_ref6) {
+          var id = _ref6.id,
+              content = _ref6.content;
+          content[0].values.forEach(function (patentNo) {
+            tableData.push({
+              id: id,
+              patent_number: patentNo
+            });
+          });
+        });
+      }
+
+      table.appendRows(tableData);
+      doneCallback();
+    };
+
+    module.exports = getData;
+  }, {}],
+  337: [function (require, module, exports) {
+    var getSchema = function getSchema(schemaCallback) {
+      var labels_col = [{
+        id: "display",
+        dataType: tableau.dataTypeEnum.string
+      }, {
+        id: "text",
+        dataType: tableau.dataTypeEnum.string
+      }, {
+        id: "score",
+        dataType: tableau.dataTypeEnum.float
+      }, {
+        id: "df",
+        dataType: tableau.dataTypeEnum.float
+      }, {
+        id: "id",
+        dataType: tableau.dataTypeEnum.float
+      }];
+      var labelsTable = {
+        id: "labels",
+        alias: "list of labels",
+        columns: labels_col
+      };
+      var label_to_document = [{
+        id: "label_id",
+        dataType: tableau.dataTypeEnum.float
+      }, {
+        id: "document_id",
+        dataType: tableau.dataTypeEnum.float
+      }];
+      var labelDocumentLookupTable = {
+        id: "label_document_lookup",
+        alias: "look up table to map document to label",
+        columns: label_to_document
+      };
+      var labels_coord_col = [{
+        id: "id",
+        dataType: tableau.dataTypeEnum.float
+      }, {
+        id: "x",
+        dataType: tableau.dataTypeEnum.float
+      }, {
+        id: "y",
+        dataType: tableau.dataTypeEnum.float
+      }];
+      var labelsCoordTable = {
+        id: "label_coordinates",
+        alias: "list of label coordinates",
+        columns: labels_coord_col
+      };
+      var documents_coord_col = [{
+        id: "id",
+        dataType: tableau.dataTypeEnum.float
+      }, {
+        id: "x",
+        dataType: tableau.dataTypeEnum.float
+      }, {
+        id: "y",
+        dataType: tableau.dataTypeEnum.float
+      }];
+      var documentsCoordTable = {
+        id: "document_coordinates",
+        alias: "list of document coordinates",
+        columns: documents_coord_col
+      };
+      var document_patent_numbers = [{
+        id: "id",
+        dataType: tableau.dataTypeEnum.float
+      }, {
+        id: "patent_number",
+        dataType: tableau.dataTypeEnum.string
+      }];
+      var patentNumberTable = {
+        id: "document_patent_numbers",
+        alias: "list of document patent numbers",
+        columns: document_patent_numbers
+      };
+      schemaCallback([labelsTable, labelDocumentLookupTable, labelsCoordTable, documentsCoordTable, patentNumberTable]);
+    };
+
+    module.exports = getSchema;
+  }, {}],
   338: [function (require, module, exports) {
     require("@babel/polyfill");
 
-    var getFlatObj = require("./callApi.js");
+    var callApi = require("./callApi.js");
 
-    var calculateSchema = require("./calculateSchema.js");
+    var getSchema = require("./getSchema.js");
+
+    var getData = require("./getData.js");
 
     var wdc = tableau.makeConnector();
 
     wdc.getSchema = function (schemaCallback) {
-      calculateSchema(schemaCallback);
+      getSchema(schemaCallback);
     };
 
-    wdc.getData =
-    /*#__PURE__*/
-    function () {
-      var _ref2 = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2(table, doneCallback) {
-        var connectionData, columns, flattenObj, tableData;
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                connectionData = JSON.parse(tableau.connectionData);
-                columns = connectionData.columns, flattenObj = connectionData.flattenObj;
-                console.log("datas:", columns, flattenObj);
-                tableData = flattenObj.map(function (element) {
-                  var eachItem = {};
-                  columns.forEach(function (el) {
-                    var objKey = el.id;
-                    var schemaKey = objKey.replace(".", "_");
-                    eachItem[schemaKey] = element[objKey] ? element[objKey] : null;
-                  });
-                  return eachItem;
-                });
-                table.appendRows(tableData);
-                doneCallback();
-
-              case 6:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-
-      return function (_x2, _x3) {
-        return _ref2.apply(this, arguments);
-      };
-    }();
+    wdc.getData = function (table, doneCallback) {
+      getData(table, doneCallback);
+    };
 
     function setupConnector() {
       return _setupConnector.apply(this, arguments);
@@ -12147,22 +12107,22 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     function _setupConnector() {
       _setupConnector = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee3() {
-        var search_query, _ref3, flattenList, connectionData;
+      regeneratorRuntime.mark(function _callee2() {
+        var search_query, _ref7, data, connectionData;
 
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 search_query = document.querySelector("#search_query").value;
-                _context3.next = 3;
-                return getFlatObj(search_query);
+                _context2.next = 3;
+                return callApi(search_query);
 
               case 3:
-                _ref3 = _context3.sent;
-                flattenList = _ref3.flattenList;
+                _ref7 = _context2.sent;
+                data = _ref7.data;
                 connectionData = {
-                  flattenObj: flattenList
+                  data: data
                 };
                 tableau.connectionData = JSON.stringify(connectionData);
                 tableau.connectionName = "Lingo4G Patents View Prototype WDC";
@@ -12170,10 +12130,10 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
               case 9:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3);
+        }, _callee2);
       }));
       return _setupConnector.apply(this, arguments);
     }
@@ -12184,8 +12144,9 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       setupConnector();
     });
   }, {
-    "./calculateSchema.js": 336,
-    "./callApi.js": 337,
+    "./callApi.js": 335,
+    "./getData.js": 336,
+    "./getSchema.js": 337,
     "@babel/polyfill": 2
   }]
 }, {}, [338]);
