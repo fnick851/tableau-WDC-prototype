@@ -18,7 +18,7 @@ const getSchema = schemaCallback => {
         },
         {
             id: "id",
-            dataType: tableau.dataTypeEnum.float
+            dataType: tableau.dataTypeEnum.int
         }
     ]
 
@@ -31,7 +31,7 @@ const getSchema = schemaCallback => {
     const label_to_document = [
         {
             id: "label_id",
-            dataType: tableau.dataTypeEnum.float
+            dataType: tableau.dataTypeEnum.int
         },
         {
             id: "document_id",
@@ -48,7 +48,7 @@ const getSchema = schemaCallback => {
     const labels_coord_col = [
         {
             id: "id",
-            dataType: tableau.dataTypeEnum.float
+            dataType: tableau.dataTypeEnum.int
         },
         {
             id: "x",
@@ -69,7 +69,7 @@ const getSchema = schemaCallback => {
     const documents_coord_col = [
         {
             id: "id",
-            dataType: tableau.dataTypeEnum.float
+            dataType: tableau.dataTypeEnum.int
         },
         {
             id: "x",
@@ -90,7 +90,7 @@ const getSchema = schemaCallback => {
     const document_patent_numbers = [
         {
             id: "id",
-            dataType: tableau.dataTypeEnum.float
+            dataType: tableau.dataTypeEnum.int
         },
         {
             id: "patent_number",

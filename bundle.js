@@ -12015,7 +12015,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         dataType: tableau.dataTypeEnum.float
       }, {
         id: "id",
-        dataType: tableau.dataTypeEnum.float
+        dataType: tableau.dataTypeEnum.int
       }];
       var labelsTable = {
         id: "labels",
@@ -12024,7 +12024,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       };
       var label_to_document = [{
         id: "label_id",
-        dataType: tableau.dataTypeEnum.float
+        dataType: tableau.dataTypeEnum.int
       }, {
         id: "document_id",
         dataType: tableau.dataTypeEnum.float
@@ -12036,7 +12036,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       };
       var labels_coord_col = [{
         id: "id",
-        dataType: tableau.dataTypeEnum.float
+        dataType: tableau.dataTypeEnum.int
       }, {
         id: "x",
         dataType: tableau.dataTypeEnum.float
@@ -12051,7 +12051,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       };
       var documents_coord_col = [{
         id: "id",
-        dataType: tableau.dataTypeEnum.float
+        dataType: tableau.dataTypeEnum.int
       }, {
         id: "x",
         dataType: tableau.dataTypeEnum.float
@@ -12066,7 +12066,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       };
       var document_patent_numbers = [{
         id: "id",
-        dataType: tableau.dataTypeEnum.float
+        dataType: tableau.dataTypeEnum.int
       }, {
         id: "patent_number",
         dataType: tableau.dataTypeEnum.string
