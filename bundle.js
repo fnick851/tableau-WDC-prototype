@@ -11918,7 +11918,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       var data = connectionData.data;
       var tableData = [];
 
-      if (table.tableInfo.id == "labels") {
+      if (table.tableInfo.id === "labels") {
         var labelList = data.labels.list;
         tableData = labelList.map(function (_ref2) {
           var display = _ref2.display,
@@ -11936,22 +11936,22 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         });
       }
 
-      if (table.tableInfo.id == "label_document_lookup") {
+      if (table.tableInfo.id === "label_document_lookup") {
         var _labelList = data.labels.list;
 
         _labelList.forEach(function (_ref3) {
           var id = _ref3.id,
               documents = _ref3.documents;
-          documents.forEach(function (el) {
+          documents.forEach(function (document_id) {
             tableData.push({
               label_id: id,
-              document_id: el
+              document_id: document_id
             });
           });
         });
       }
 
-      if (table.tableInfo.id == "label_coordinates") {
+      if (table.tableInfo.id === "label_coordinates") {
         var labelCoordList = data.documents.embedding.labels;
         tableData = labelCoordList.map(function (_ref4) {
           var id = _ref4.id,
@@ -11965,7 +11965,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         });
       }
 
-      if (table.tableInfo.id == "document_coordinates") {
+      if (table.tableInfo.id === "document_coordinates") {
         var documentCoordList = data.documents.embedding.documents;
         tableData = documentCoordList.map(function (_ref5) {
           var id = _ref5.id,
@@ -11979,15 +11979,15 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         });
       }
 
-      if (table.tableInfo.id == "document_patent_numbers") {
+      if (table.tableInfo.id === "document_patent_numbers") {
         var patentNumberList = data.documents.list;
         patentNumberList.forEach(function (_ref6) {
           var id = _ref6.id,
               content = _ref6.content;
-          content[0].values.forEach(function (patentNo) {
+          content[0].values.forEach(function (patent_number) {
             tableData.push({
               id: id,
-              patent_number: patentNo
+              patent_number: patent_number
             });
           });
         });
