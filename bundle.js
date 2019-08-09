@@ -12027,7 +12027,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         dataType: tableau.dataTypeEnum.int
       }, {
         id: "document_id",
-        dataType: tableau.dataTypeEnum.float
+        dataType: tableau.dataTypeEnum.int
       }];
       var labelDocumentLookupTable = {
         id: "label_document_lookup",

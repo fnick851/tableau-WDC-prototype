@@ -35,7 +35,7 @@ const getSchema = schemaCallback => {
         },
         {
             id: "document_id",
-            dataType: tableau.dataTypeEnum.float
+            dataType: tableau.dataTypeEnum.int
         }
     ]
 
