@@ -7,4 +7,4 @@ Please refer to documentation for how to develop: http://tableau.github.io/webda
 
 The WDC is built with browserify and babel.
 
-URL for this WDC: https://fnick851.github.io/tabluea_WDC_prototype/lingo4g_api.html
+URL for this WDC: https://fnick851.github.io/tableau-WDC-prototype/lingo4g_api.html
